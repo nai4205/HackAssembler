@@ -1,4 +1,5 @@
 #include "symbol_table.h"
+#include <iostream>
 
 SymbolTable::SymbolTable() {
   table["SP"] = 0;
@@ -21,6 +22,24 @@ int SymbolTable::getValue(std::string symbol) {
   if (table.count(symbol)) {
     return table.at(symbol);
   } else {
-    throw std::out_of_range("Symbol '" + symbol + "' not found in the table.");
+    insertAtNextValue(symbol);
+    return table.at(symbol);
+  }
+}
+
+void SymbolTable::insertAtNextValue(std::string symbol) {
+  static int nextAvailableValue =
+      16; // Start from 16 because R0-R15 are reserved
+
+  // Insert the symbol with the next available value
+  table[symbol] = nextAvailableValue;
+
+  // Increment the value for the next symbol
+  nextAvailableValue++;
+}
+
+void SymbolTable::printTable() {
+  for (auto it = table.cbegin(); it != table.cend(); ++it) {
+    std::cout << it->first << it->second << " ";
   }
 }
