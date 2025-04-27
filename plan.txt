@@ -1,22 +1,31 @@
 First pass: read all commands, update symbol table with labels
+Labels:
+when you see "(xxx)" command, add "xxx" and the address of the next machine language command
+so keep track of line number and add that to the symbol table
+
 Second pass:
 -get the next assembly language command and parse it 
 -for a-commands : translate symbols to binary addresses
   - symbol exists? get the address
-  - otherwise, add to the symbol table for c-commands: get code for each part and put them together
+  - otherwise, add to the symbol table 
+    for c-commands: get code for each part and put them together
+Variables:
+when yous see "@xxx" command, where "xxx" is not a number and not already in the table, add "xxx" and the next free address for variable allocation to the symbol table. so the highest number in the symbol table i think? (line number)
+they start at 16
 
-parser gets the assembly language command
-dest = comp ; jump
-String c = parser.comp()
-String d = parser.dest()
-String j = parser.jump()
+ok so 
+1. loop through labels and add their line number to the table. 19 (label) = {"label", lineNumber}
+2. loop through again, this time parse each line normally
+if c command:
+  parse normally
+if a command (@):
+  if integer then:
+    convert to binary
+  if !integer then:
+    if doesnt exist in symbol table:
+      store the variable name in the next available spot in symbol
+    else:
+      get the line number from the symbol table and convert to binary
 
-String cc = code.comp(c)
-String dd = code.dest(d)
-String jj = code.jump(j)
-String out = "" + cc + dd + jj;
-so classes:
-Parser
-Code 
-SymbolTable
-
+a-instrution: start with 000
+c-instruction: start with 111

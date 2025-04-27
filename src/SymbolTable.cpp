@@ -13,11 +13,11 @@ SymbolTable::SymbolTable() {
   }
 }
 
-void SymbolTable::insert(std::string symbol, BinaryValue value) {
+void SymbolTable::insert(std::string symbol, int value) {
   table[symbol] = value;
 }
 
-BinaryValue SymbolTable::getValue(std::string symbol) {
+int SymbolTable::getValue(std::string symbol) {
   if (table.count(symbol)) {
     return table.at(symbol);
   } else {

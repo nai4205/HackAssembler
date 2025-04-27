@@ -10,11 +10,11 @@ using BinaryValue = uint16_t;
 class SymbolTable {
 public:
   SymbolTable();
-  void insert(std::string symbol, BinaryValue value);
-  BinaryValue getValue(std::string symbol);
+  void insert(std::string symbol, int value);
+  int getValue(std::string symbol);
 
 private:
-  std::map<std::string, BinaryValue> table;
+  std::map<std::string, int> table;
 };
 
 #endif

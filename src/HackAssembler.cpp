@@ -15,7 +15,34 @@ public:
   Assembler(string file) { filename = file; }
   void Start() {
     // TODO: first pass with symbol table
-    this->second_pass();
+    //
+    // this->second_pass();
+    first_pass();
+  }
+  void first_pass() {
+
+    ifstream file(filename);
+    ostringstream result;
+    string line;
+
+    if (!file.is_open()) {
+      cerr << "Failed to open file: " << filename << "\n";
+    }
+
+    while (getline(file, line)) {
+      // Remove comments
+      size_t commentPos = line.find("//");
+      if (commentPos != string::npos) {
+        line = line.substr(0, commentPos);
+      }
+      // Remove trailing whitespace from the line (optional but nicer)
+      line.erase(line.find_last_not_of(" \t\n\r\f\v") + 1);
+
+      if (!line.empty()) { // Only print non-empty lines
+        Parser p(line);
+        p.LParser();
+      }
+    }
   }
   void second_pass() {
     ifstream file(filename);

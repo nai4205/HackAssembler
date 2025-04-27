@@ -1,10 +1,23 @@
 #include "parser.h"
+#include "symbol_table.h"
+#include <iostream>
 #include <string>
 #include <sys/_types/_u_int16_t.h>
 
 using namespace std;
 Parser::Parser(string l) { line = l; }
 
+int Parser::lineNumber = 0;
+
+void Parser::LParser() {
+  if (!line.empty() && line.front() == '(' && line.back() == ')') {
+    lineNumber++;
+    string content = line.substr(1, line.length() - 2);
+    SymbolTable s;
+    s.insert(content, lineNumber);
+    cout << s.getValue(content) << "\n";
+  }
+}
 void Parser::CParser() {
   size_t eqPos = line.find('=');
   size_t semiPos = line.find(';');
