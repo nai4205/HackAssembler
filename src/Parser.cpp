@@ -1,5 +1,5 @@
 #include "parser.h"
-#include "symbol_table.h"
+#include "symbol_table_instance.h"
 #include <iostream>
 #include <string>
 #include <sys/_types/_u_int16_t.h>
@@ -13,9 +13,8 @@ void Parser::LParser() {
   if (!line.empty() && line.front() == '(' && line.back() == ')') {
     lineNumber++;
     string content = line.substr(1, line.length() - 2);
-    SymbolTable s;
-    s.insert(content, lineNumber);
-    cout << s.getValue(content) << "\n";
+    globalSymbolTable.insert(content, lineNumber);
+    cout << globalSymbolTable.getValue(content) << "\n";
   }
 }
 void Parser::CParser() {
