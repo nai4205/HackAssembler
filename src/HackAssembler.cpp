@@ -86,10 +86,9 @@ public:
             //       "\n";
             string addr = line.erase(0, 1);
             // cout << addr;
-            bitset<13> binary(stoi(addr));
+            bitset<16> binary(stoi(addr));
             // cout << binary;
-            bitset<3> bpad = 0b000;
-            outputFile << bpad << binary << "\n";
+            outputFile << binary << "\n";
           } else {
             // cout << "not number" << "\n";
             string addr = line.erase(0, 1);
