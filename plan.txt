@@ -1,0 +1,22 @@
+First pass: read all commands, update symbol table with labels
+Second pass:
+-get the next assembly language command and parse it 
+-for a-commands : translate symbols to binary addresses
+  - symbol exists? get the address
+  - otherwise, add to the symbol table for c-commands: get code for each part and put them together
+
+parser gets the assembly language command
+dest = comp ; jump
+String c = parser.comp()
+String d = parser.dest()
+String j = parser.jump()
+
+String cc = code.comp(c)
+String dd = code.dest(d)
+String jj = code.jump(j)
+String out = "" + cc + dd + jj;
+so classes:
+Parser
+Code 
+SymbolTable
+
